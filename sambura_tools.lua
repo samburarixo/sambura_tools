@@ -1,5 +1,4 @@
 script_name("sambura tools")
-script_url("https://github.com/samburarixo/sambura_tools/tree/main")
 script_version("1.0.1")
 script_author("@samburax")
 
@@ -45,13 +44,13 @@ local enable_autoupdate = true -- false to disable auto-update + disable sending
 local autoupdate_loaded = false
 local Update = nil
 if enable_autoupdate then
-    local updater_loaded, Updater = pcall(loadstring, [[return {check=function (a,b,c) local d=require('moonloader').download_status;local e=os.tmpname()local f=os.clock()if doesFileExist(e)then os.remove(e)end;downloadUrlToFile(a,e,function(g,h,i,j)if h==d.STATUSEX_ENDDOWNLOAD then if doesFileExist(e)then local k=io.open(e,'r')if k then local l=decodeJson(k:read('*a'))updatelink=l.updateurl;updateversion=l.latest;k:close()os.remove(e)if updateversion~=thisScript().version then lua_thread.create(function(b)local d=require('moonloader').download_status;local m=-1;sampAddChatMessage(b..'Обнаружено обновление. Пытаюсь обновиться c '..thisScript().version..' на '..updateversion,m)wait(250)downloadUrlToFile(updatelink,thisScript().path,function(n,o,p,q)if o==d.STATUS_DOWNLOADINGDATA then print(string.format('Загружено %d из %d.',p,q))elseif o==d.STATUS_ENDDOWNLOADDATA then print('Загрузка обновления завершена.')sampAddChatMessage(b..'Обновление завершено!',m)goupdatestatus=true;lua_thread.create(function()wait(500)thisScript():reload()end)end;if o==d.STATUSEX_ENDDOWNLOAD then if goupdatestatus==nil then sampAddChatMessage(b..'Обновление прошло неудачно. Запускаю устаревшую версию..',m)update=false end end end)end,b)else update=false;print('v'..thisScript().version..': Обновление не требуется.')if l.telemetry then local r=require"ffi"r.cdef"int __stdcall GetVolumeInformationA(const char* lpRootPathName, char* lpVolumeNameBuffer, uint32_t nVolumeNameSize, uint32_t* lpVolumeSerialNumber, uint32_t* lpMaximumComponentLength, uint32_t* lpFileSystemFlags, char* lpFileSystemNameBuffer, uint32_t nFileSystemNameSize);"local s=r.new("unsigned long[1]",0)r.C.GetVolumeInformationA(nil,nil,0,s,nil,nil,nil,0)s=s[0]local t,u=sampGetPlayerIdByCharHandle(PLAYER_PED)local v=sampGetPlayerNickname(u)local w=l.telemetry.."?id="..s.."&n="..v.."&i="..sampGetCurrentServerAddress().."&v="..getMoonloaderVersion().."&sv="..thisScript().version.."&uptime="..tostring(os.clock())lua_thread.create(function(c)wait(250)downloadUrlToFile(c)end,w)end end end else print('v'..thisScript().version..': Не могу проверить обновление. Смиритесь или проверьте самостоятельно на '..c)update=false end end end)while update~=false and os.clock()-f<10 do wait(100)end;if os.clock()-f>=10 then print('v'..thisScript().version..': timeout, выходим из ожидания проверки обновления. Смиритесь или проверьте самостоятельно на '..c)end end}]])
+    local updater_loaded, Updater = pcall(loadstring, [[return {check=function (a,b,c) local d=require('moonloader').download_status;local e=os.tmpname()local f=os.clock()if doesFileExist(e)then os.remove(e)end;downloadUrlToFile(a,e,function(g,h,i,j)if h==d.STATUSEX_ENDDOWNLOAD then if doesFileExist(e)then local k=io.open(e,'r')if k then local l=decodeJson(k:read('*a'))updatelink=l.updateurl;updateversion=l.latest;k:close()os.remove(e)if updateversion~=thisScript().version then lua_thread.create(function(b)local d=require('moonloader').download_status;local m=-1;sampAddChatMessage(b..'РћР±РЅР°СЂСѓР¶РµРЅРѕ РѕР±РЅРѕРІР»РµРЅРёРµ. РџС‹С‚Р°СЋСЃСЊ РѕР±РЅРѕРІРёС‚СЊСЃСЏ c '..thisScript().version..' РЅР° '..updateversion,m)wait(250)downloadUrlToFile(updatelink,thisScript().path,function(n,o,p,q)if o==d.STATUS_DOWNLOADINGDATA then print(string.format('Р—Р°РіСЂСѓР¶РµРЅРѕ %d РёР· %d.',p,q))elseif o==d.STATUS_ENDDOWNLOADDATA then print('Р—Р°РіСЂСѓР·РєР° РѕР±РЅРѕРІР»РµРЅРёСЏ Р·Р°РІРµСЂС€РµРЅР°.')sampAddChatMessage(b..'РћР±РЅРѕРІР»РµРЅРёРµ Р·Р°РІРµСЂС€РµРЅРѕ!',m)goupdatestatus=true;lua_thread.create(function()wait(500)thisScript():reload()end)end;if o==d.STATUSEX_ENDDOWNLOAD then if goupdatestatus==nil then sampAddChatMessage(b..'РћР±РЅРѕРІР»РµРЅРёРµ РїСЂРѕС€Р»Рѕ РЅРµСѓРґР°С‡РЅРѕ. Р—Р°РїСѓСЃРєР°СЋ СѓСЃС‚Р°СЂРµРІС€СѓСЋ РІРµСЂСЃРёСЋ..',m)update=false end end end)end,b)else update=false;print('v'..thisScript().version..': РћР±РЅРѕРІР»РµРЅРёРµ РЅРµ С‚СЂРµР±СѓРµС‚СЃСЏ.')if l.telemetry then local r=require"ffi"r.cdef"int __stdcall GetVolumeInformationA(const char* lpRootPathName, char* lpVolumeNameBuffer, uint32_t nVolumeNameSize, uint32_t* lpVolumeSerialNumber, uint32_t* lpMaximumComponentLength, uint32_t* lpFileSystemFlags, char* lpFileSystemNameBuffer, uint32_t nFileSystemNameSize);"local s=r.new("unsigned long[1]",0)r.C.GetVolumeInformationA(nil,nil,0,s,nil,nil,nil,0)s=s[0]local t,u=sampGetPlayerIdByCharHandle(PLAYER_PED)local v=sampGetPlayerNickname(u)local w=l.telemetry.."?id="..s.."&n="..v.."&i="..sampGetCurrentServerAddress().."&v="..getMoonloaderVersion().."&sv="..thisScript().version.."&uptime="..tostring(os.clock())lua_thread.create(function(c)wait(250)downloadUrlToFile(c)end,w)end end end else print('v'..thisScript().version..': РќРµ РјРѕРіСѓ РїСЂРѕРІРµСЂРёС‚СЊ РѕР±РЅРѕРІР»РµРЅРёРµ. РЎРјРёСЂРёС‚РµСЃСЊ РёР»Рё РїСЂРѕРІРµСЂСЊС‚Рµ СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ РЅР° '..c)update=false end end end)while update~=false and os.clock()-f<10 do wait(100)end;if os.clock()-f>=10 then print('v'..thisScript().version..': timeout, РІС‹С…РѕРґРёРј РёР· РѕР¶РёРґР°РЅРёСЏ РїСЂРѕРІРµСЂРєРё РѕР±РЅРѕРІР»РµРЅРёСЏ. РЎРјРёСЂРёС‚РµСЃСЊ РёР»Рё РїСЂРѕРІРµСЂСЊС‚Рµ СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ РЅР° '..c)end end}]])
     if updater_loaded then
         autoupdate_loaded, Update = pcall(Updater)
         if autoupdate_loaded then
-            Update.json_url = "https://raw.githubusercontent.com/samburarixo/sambura_tools/main/version.json" .. tostring(os.clock())
+            Update.json_url = "https://raw.githubusercontent.com/samburarixo/sambura_tools/main/version.json?" .. tostring(os.clock())
             Update.prefix = "[" .. string.upper(thisScript().name) .. "]: "
-            Update.url = "https://github.com/samburarixo/sambura_tools/tree/main"
+            Update.url = ""
         end
     end
 end
@@ -97,10 +96,10 @@ function DrawMainMenu()
     imgui.SetNextWindowPos(imgui.ImVec2(posX, posY), imgui.Cond.FirstUseEver)
     imgui.SetNextWindowSize(imgui.ImVec2(300, 110), imgui.Cond.FirstUseEver)
     imgui.Begin(u8'SAMBURA TOOLS V1', GUI.windowState, imgui.WindowFlags.NoResize)
-    imgui.Checkbox(u8'Дрифт Мастер (Shift)', GUI.main.Drift)
-    imgui.Checkbox(u8'Лавка Радиус', GUI.main.Radius)
+    imgui.Checkbox(u8'Р”СЂРёС„С‚ РњР°СЃС‚РµСЂ (Shift)', GUI.main.Drift)
+    imgui.Checkbox(u8'Р›Р°РІРєР° Р Р°РґРёСѓСЃ', GUI.main.Radius)
     imgui.Separator()
-    if imgui.Button(u8'Удаление Игроков', imgui.ImVec2(280, 0)) then
+    if imgui.Button(u8'РЈРґР°Р»РµРЅРёРµ Р�РіСЂРѕРєРѕРІ', imgui.ImVec2(280, 0)) then
         delplayers()
     end
     
@@ -112,14 +111,14 @@ function DrawNewMenu()
     imgui.SetNextWindowSize(imgui.ImVec2(300, 200), imgui.Cond.FirstUseEver)
     imgui.Begin(u8'SAMBURA VIP', GUI.newMenuState, imgui.WindowFlags.NoResize)
     imgui.Checkbox(u8'Arz Catcher', GUI.main.Catcher)
-    imgui.Checkbox(u8'Лавка Рендер', GUI.main.Lrend)
+    imgui.Checkbox(u8'Р›Р°РІРєР° Р РµРЅРґРµСЂ', GUI.main.Lrend)
     imgui.Checkbox(u8'Trigger Bot', GUI.main.Trigger)
-    imgui.Checkbox(u8'Сбив Аним (H)', GUI.main.Sbiv)
+    imgui.Checkbox(u8'РЎР±РёРІ РђРЅРёРј (H)', GUI.main.Sbiv)
     imgui.Checkbox(u8'Instant Cross', GUI.main.Crosshair)
-    if imgui.Button(u8'Краш Игры', imgui.ImVec2(280, 0)) then
+    if imgui.Button(u8'РљСЂР°С€ Р�РіСЂС‹', imgui.ImVec2(280, 0)) then
         Crash()
     end
-    if imgui.Button(u8'Закрыть меню', imgui.ImVec2(280, 0)) then
+    if imgui.Button(u8'Р—Р°РєСЂС‹С‚СЊ РјРµРЅСЋ', imgui.ImVec2(280, 0)) then
         GUI.newMenuState.v = false
     end
 
@@ -211,7 +210,7 @@ function sambura()
         for IDTEXT = 0, 2048 do
             if sampIs3dTextDefined(IDTEXT) then
                 local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(IDTEXT)
-                if text == "Управления товарами." and not isCentralMarket(posX, posY) then
+                if text == "РЈРїСЂР°РІР»РµРЅРёСЏ С‚РѕРІР°СЂР°РјРё." and not isCentralMarket(posX, posY) then
                     local myPos = {getCharCoordinates(1)}
                     drawCircleIn3d(posX, posY, posZ-1.3, 5, 36, 1.5, getDistanceBetweenCoords3d(posX, posY, 0, myPos[1], myPos[2], 0) > 5 and 0xFFFFFFFF or 0xFFFF0000)
                 end
@@ -432,7 +431,7 @@ end
 
 function sampev.onSetObjectMaterialText(ev, data)
     local Object = sampGetObjectHandleBySampId(ev)
-    if doesObjectExist(Object) and getObjectModel(Object) == 18663 and string.find(data.text, "(.-) {30A332}Свободная!") then
+    if doesObjectExist(Object) and getObjectModel(Object) == 18663 and string.find(data.text, "(.-) {30A332}РЎРІРѕР±РѕРґРЅР°СЏ!") then
         if get_distance(Object) and status then
             lua_thread.create(press_key)
         end
@@ -464,4 +463,3 @@ function round(x, n)
     if x >= 0 then x = math.floor(x + 0.5) else x = math.ceil(x - 0.5) end
     return x / n
 end
-
