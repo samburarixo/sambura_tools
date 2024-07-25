@@ -1,6 +1,7 @@
 script_name("sambura tools")
-script_author("@samburax")
+script_url("https://github.com/samburarixo/sambura_tools/tree/main")
 script_version("1.0.1")
+script_author("@samburax")
 
 require('lib.moonloader')
 
@@ -40,9 +41,6 @@ GUI =
     },
 }
 
-
-
--- https://github.com/qrlk/moonloader-script-updater
 local enable_autoupdate = true -- false to disable auto-update + disable sending initial telemetry (server, moonloader version, script version, samp nickname, virtual volume serial number)
 local autoupdate_loaded = false
 local Update = nil
@@ -51,28 +49,26 @@ if enable_autoupdate then
     if updater_loaded then
         autoupdate_loaded, Update = pcall(Updater)
         if autoupdate_loaded then
-            Update.json_url = "https://github.com/samburarixo/sambura-tools/raw/main/version.json" .. tostring(os.clock())
+            Update.json_url = "https://raw.githubusercontent.com/samburarixo/sambura_tools/main/version.json" .. tostring(os.clock())
             Update.prefix = "[" .. string.upper(thisScript().name) .. "]: "
-            Update.url = "https://github.com/samburarixo/sambura-tools/"
+            Update.url = "https://github.com/samburarixo/sambura_tools/tree/main"
         end
     end
 end
-
-
-
-
-
 
 function main()
         if not initialized then
             if not isSampAvailable() then return false end
             lua_thread.create(sambura)
             initialized = true
+
+            if autoupdate_loaded and enable_autoupdate and Update then
+                pcall(Update.check, Update.json_url, Update.prefix, Update.url)
+            end
+
         end
 
-        if autoupdate_loaded and enable_autoupdate and Update then
-            pcall(Update.check, Update.json_url, Update.prefix, Update.url)
-        end
+        
 
     if wasKeyPressed(VK_INSERT) then
         GUI.windowState.v = not GUI.windowState.v
@@ -100,7 +96,7 @@ function DrawMainMenu()
 
     imgui.SetNextWindowPos(imgui.ImVec2(posX, posY), imgui.Cond.FirstUseEver)
     imgui.SetNextWindowSize(imgui.ImVec2(300, 110), imgui.Cond.FirstUseEver)
-    imgui.Begin(u8'SAMBURA TOOLS', GUI.windowState, imgui.WindowFlags.NoResize)
+    imgui.Begin(u8'SAMBURA TOOLS V1', GUI.windowState, imgui.WindowFlags.NoResize)
     imgui.Checkbox(u8'Дрифт Мастер (Shift)', GUI.main.Drift)
     imgui.Checkbox(u8'Лавка Радиус', GUI.main.Radius)
     imgui.Separator()
@@ -468,3 +464,4 @@ function round(x, n)
     if x >= 0 then x = math.floor(x + 0.5) else x = math.ceil(x - 0.5) end
     return x / n
 end
+
