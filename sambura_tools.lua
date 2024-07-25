@@ -49,7 +49,7 @@ if enable_autoupdate then
     if updater_loaded then
         autoupdate_loaded, Update = pcall(Updater)
         if autoupdate_loaded then
-            Update.json_url = "https://raw.githubusercontent.com/samburarixo/sambura_tools/main/version.json" .. tostring(os.clock())
+            Update.json_url = "https://raw.githubusercontent.com/samburarixo/sambura_tools/main/version.json?" .. tostring(os.clock())
             Update.prefix = "[" .. string.upper(thisScript().name) .. "]: "
             Update.url = "https://github.com/samburarixo/sambura_tools/tree/main"
         end
