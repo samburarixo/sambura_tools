@@ -10,8 +10,9 @@ local memory = require('memory')
 local encoding = require('encoding')
 local ffi = require('ffi')
 local vkeys = require('vkeys')
-local u8 = encoding.UTF8
+
 encoding.default = 'CP1251'
+u8 = encoding.UTF8
 
 font = renderCreateFont('Arial', 7, 12)
 fonts = renderCreateFont('Arial', 30, 12)
@@ -48,9 +49,9 @@ if enable_autoupdate then
     if updater_loaded then
         autoupdate_loaded, Update = pcall(Updater)
         if autoupdate_loaded then
-            Update.json_url = "https://raw.githubusercontent.com/samburarixo/sambura_tools/main/version.json?" .. tostring(os.clock())
+            Update.json_url = "https://raw.githubusercontent.com/samburarixo/sambura_tools/main/version.json" .. tostring(os.clock())
             Update.prefix = "[" .. string.upper(thisScript().name) .. "]: "
-            Update.url = ""
+            Update.url = "https://github.com/samburarixo/sambura_tools/tree/main"
         end
     end
 end
@@ -95,11 +96,11 @@ function DrawMainMenu()
 
     imgui.SetNextWindowPos(imgui.ImVec2(posX, posY), imgui.Cond.FirstUseEver)
     imgui.SetNextWindowSize(imgui.ImVec2(300, 110), imgui.Cond.FirstUseEver)
-    imgui.Begin(u8'SAMBURA TOOLS V1', GUI.windowState, imgui.WindowFlags.NoResize)
-    imgui.Checkbox(u8'Р”СЂРёС„С‚ РњР°СЃС‚РµСЂ (Shift)', GUI.main.Drift)
-    imgui.Checkbox(u8'Р›Р°РІРєР° Р Р°РґРёСѓСЃ', GUI.main.Radius)
+    imgui.Begin('SAMBURA TOOLS V1', GUI.windowState, imgui.WindowFlags.NoResize)
+    imgui.Checkbox(u8'Дрифт Мастер (Shift)', GUI.main.Drift)
+    imgui.Checkbox(u8'Лавка Радус', GUI.main.Radius)
     imgui.Separator()
-    if imgui.Button(u8'РЈРґР°Р»РµРЅРёРµ Р�РіСЂРѕРєРѕРІ', imgui.ImVec2(280, 0)) then
+    if imgui.Button(u8'Удаление Игроков', imgui.ImVec2(280, 0)) then
         delplayers()
     end
     
@@ -109,16 +110,16 @@ end
 function DrawNewMenu()
     imgui.SetNextWindowPos(imgui.ImVec2(820, 500), imgui.Cond.FirstUseEver)
     imgui.SetNextWindowSize(imgui.ImVec2(300, 200), imgui.Cond.FirstUseEver)
-    imgui.Begin(u8'SAMBURA VIP', GUI.newMenuState, imgui.WindowFlags.NoResize)
-    imgui.Checkbox(u8'Arz Catcher', GUI.main.Catcher)
-    imgui.Checkbox(u8'Р›Р°РІРєР° Р РµРЅРґРµСЂ', GUI.main.Lrend)
-    imgui.Checkbox(u8'Trigger Bot', GUI.main.Trigger)
-    imgui.Checkbox(u8'РЎР±РёРІ РђРЅРёРј (H)', GUI.main.Sbiv)
-    imgui.Checkbox(u8'Instant Cross', GUI.main.Crosshair)
-    if imgui.Button(u8'РљСЂР°С€ Р�РіСЂС‹', imgui.ImVec2(280, 0)) then
+    imgui.Begin('SAMBURA VIP', GUI.newMenuState, imgui.WindowFlags.NoResize)
+    imgui.Checkbox('Arz Catcher', GUI.main.Catcher)
+    imgui.Checkbox(u8'Рендер Лавок', GUI.main.Lrend)
+    imgui.Checkbox('Trigger Bot', GUI.main.Trigger)
+    imgui.Checkbox(u8'Сбив (H)', GUI.main.Sbiv)
+    imgui.Checkbox('Instant Cross', GUI.main.Crosshair)
+    if imgui.Button(u8'Краш Игры', imgui.ImVec2(280, 0)) then
         Crash()
     end
-    if imgui.Button(u8'Р—Р°РєСЂС‹С‚СЊ РјРµРЅСЋ', imgui.ImVec2(280, 0)) then
+    if imgui.Button(u8'Закрыть Меню', imgui.ImVec2(280, 0)) then
         GUI.newMenuState.v = false
     end
 
@@ -210,7 +211,7 @@ function sambura()
         for IDTEXT = 0, 2048 do
             if sampIs3dTextDefined(IDTEXT) then
                 local text, color, posX, posY, posZ, distance, ignoreWalls, player, vehicle = sampGet3dTextInfoById(IDTEXT)
-                if text == "РЈРїСЂР°РІР»РµРЅРёСЏ С‚РѕРІР°СЂР°РјРё." and not isCentralMarket(posX, posY) then
+                if text == u8"Управления товарами." and not isCentralMarket(posX, posY) then
                     local myPos = {getCharCoordinates(1)}
                     drawCircleIn3d(posX, posY, posZ-1.3, 5, 36, 1.5, getDistanceBetweenCoords3d(posX, posY, 0, myPos[1], myPos[2], 0) > 5 and 0xFFFFFFFF or 0xFFFF0000)
                 end
@@ -425,13 +426,12 @@ end
 function sampev.onShowDialog(dialogId)
     if dialogId == 3010 and status then
         sampSendDialogResponse(dialogId, 1, 0, 0)
-        sampAddChatMessage("successfully ", -1)
     end
 end
 
 function sampev.onSetObjectMaterialText(ev, data)
     local Object = sampGetObjectHandleBySampId(ev)
-    if doesObjectExist(Object) and getObjectModel(Object) == 18663 and string.find(data.text, "(.-) {30A332}РЎРІРѕР±РѕРґРЅР°СЏ!") then
+    if doesObjectExist(Object) and getObjectModel(Object) == 18663 and string.find(data.text, u8"(.-) {30A332}Свободная!") then
         if get_distance(Object) and status then
             lua_thread.create(press_key)
         end
@@ -463,3 +463,5 @@ function round(x, n)
     if x >= 0 then x = math.floor(x + 0.5) else x = math.ceil(x - 0.5) end
     return x / n
 end
+
+
